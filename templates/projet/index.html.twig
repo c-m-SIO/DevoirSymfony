@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projet index{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{asset('css/projet.css')}}>
+{% endblock %}
+{% block body %}
+
+
+    
+        {% for projet in projets %}
+        {% if app.user.id == projet.idUtilisateur.id %}
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">{{ projet.nom }}</div>
+                <div class="notibody">
+                    <tr>
+                        <div class="notibody">{{ projet.description }}</div>
+                        <div class="notibody">{{ projet.date ? projet.date|date('Y-m-d') : '' }}</div>
+                        <div class="notibody">{{ projet.dateModification ? projet.dateModification|date('Y-m-d') : '' }}</div>
+                        <div class="notibody"><a href="{{ path('app_projet_show', {'id': projet.id}) }}">show</a></div>
+                        <div class="notibody"><a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a></div>
+                    </tr>
+            </div>
+            </div>
+            
+            {% endif %}
+        {% endfor %}
+        {# {% for projet in projets %}
+            <tr>
+                <td>{{ projet.id }}</td>
+                <td>{{ projet.nom }}</td>
+                <td>{{ projet.description }}</td>
+                <td>{{ projet.date ? projet.date|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.dateModification ? projet.dateModification|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_projet_show', {'id': projet.id}) }}">show</a>
+                    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> #}
+
+    <a href="{{ path('app_projet_new') }}">Create new</a>
+{# {% endif %} #}
+{% endblock %}

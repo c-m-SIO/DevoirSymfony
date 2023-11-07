@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{asset('css/login.css')}}>
+{% endblock %}
+
+{% block body %}
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="#">
+			
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+        <form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+
+
+
+
+
+
+    <h1>Connecte toi</h1>
+			
+			<input type="text" value="{{ last_username }}" name="_username" id="inputNom" class="form-control" autocomplete="username" required autofocus>
+            <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="" type="submit">
+        Connexion
+    </button>
+</form>
+		{# <form action="#">
+			<h1>Connecte toi</h1>
+			
+			<input type="text" value="{{ last_username }}" name="_username" id="inputNom" class="form-control" autocomplete="username" required autofocus>
+            <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+			<button>Se connecter</button>
+		</form> #}
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Rejoins le super site de kanban</p>
+				 <a href="{{ path('app_inscription') }}">
+                    <button class="ghost" id="signUp">S'insrcire</button>
+                </a>
+			</div>
+		</div>
+	</div>
+</div>
+
+{# <form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+
+
+
+
+
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputNom">Nom</label>
+    <input type="text" value="{{ last_username }}" name="_username" id="inputNom" class="form-control" autocomplete="username" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+</form> #}
+{% endblock %}

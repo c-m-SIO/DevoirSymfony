@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{asset('css/login.css')}}>
+{% endblock %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <h1>Inscription</h1>
+
+    {{ form_errors(inscriptionForm) }}
+
+    {{ form_start(inscriptionForm) }}
+        {{ form_row(inscriptionForm.nom) }}
+        {{ form_row(inscriptionForm.mail) }}
+        {{ form_row(inscriptionForm.mdp, {
+            label: 'Password'
+        }) }}
+
+        <button type="submit" class="btn bg-primary">Register</button>
+    {{ form_end(inscriptionForm) }}
+
+
+
+
+{% endblock %}

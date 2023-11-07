@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projet{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{asset('css/style.css')}}>
+{% endblock %}
+
+{% block body %}
+    {% for statut in statuts %}
+    {% if tache.idProjet.id == projet.idUtilisateur.id %}
+
+        <div class="container">
+                <h1 class="text-center mt-5">Kanban Board</h1>
+                <div class="board">
+                    <div class="column">
+                        <h3>{{ statut.libelle }}</h3>
+                        
+                        {% for tache in taches %}
+                        <div class="card" data-toggle="modal" data-target="#cardModal">
+                            <h5 class="card-title">{{ tache.titre }}</h5>
+                            <p class="card-description">{{ tache.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+ 
+    <!-- Card Modal -->
+    <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="cardModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cardModalLabel">Task Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="card-title">Task 1</h5>
+                    <p class="card-description">Description for Task 1</p>
+                    <p>Assigned to: John Doe</p>
+                    <p>Due Date: 2021-12-31</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>Projet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ projet.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ projet.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ projet.description }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ projet.date ? projet.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateModification</th>
+                <td>{{ projet.dateModification ? projet.dateModification|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_projet_index') }}">back to list</a>
+
+    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
+
+    <form method="post" action="{{ path('app_projet_tache', {'id': projet.id}) }}" onsubmit="">
+        <input type="hidden" name="_token" value="">
+        <button class="btn">Ajouter tache</button>
+    </form>
+
+    {{ include('projet/_delete_form.html.twig') }}
+{% endblock %}
